@@ -7,6 +7,7 @@ $authController = new AuthController();
 $userController = new UserController();
 $dashboardController = new DashboardController();
 
+// Coleta a ação da URL (se não houver, define como 'login')
 $action = $_GET['action'] ?? 'login';
 
 switch ($action) {
