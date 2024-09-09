@@ -1,4 +1,6 @@
 <?php
+
+// Inclue arquivos de controlador para configuração de rotas
 require 'controllers/AuthController.php';
 require 'controllers/UserController.php';
 require 'controllers/DashboardController.php';
@@ -38,4 +40,3 @@ switch ($action) {
         $authController->login();
         break;
 }
-?>
