@@ -21,7 +21,7 @@ if (isset($_SESSION['perfil'])):
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tipo</th>
+                        <th>Nome</th>
                         <th>Email</th>
                         <th>Perfil</th>
                         <th>Ações</th>
