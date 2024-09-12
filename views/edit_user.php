@@ -5,34 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
+    <link rel="stylesheet" href="css/edit.css">
 </head>
 
-<body>
-    <form method="post" action="index.php?action=edit&id=<?= $user['id'] ?>">
-        <!-- Campo de texto para o nome do usuário, com o valor preenchido a partir da variável $user -->
-        <input type="text" name="nome" value="<?= $user['nome'] ?>" required><br>
+<body class="edit-body">
+    <div class="edit-container">
+        <h2>Editar Usuário</h2>
+        <form method="post" action="index.php?action=edit&id=<?= $user['id'] ?>" class="edit-form">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" value="<?= $user['nome'] ?>" required>
 
-        <!-- Campo de e-mail do usuário , com o valor preenchido a partir da variável $user -->
-        <input type="email" name="email" value="<?= $user['email'] ?>" required><br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="<?= $user['email'] ?>" required>
 
-        <!-- Menu suspenso para selecionar o perfil do usuário -->
-        <select name="perfil">
-            <!-- Opção para 'admin', selecionada se o perfil do usuário for 'admin' -->
-            <option value="admin" <?= $user['perfil'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+            <label for="perfil">Perfil:</label>
+            <select name="perfil" id="perfil">
+                <option value="admin" <?= $user['perfil'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+                <option value="gestor" <?= $user['perfil'] == 'gestor' ? 'selected' : '' ?>>Gestor</option>
+                <option value="colaborador" <?= $user['perfil'] == 'colaborador' ? 'selected' : '' ?>>Colaborador</option>
+            </select>
 
-            <!-- Opção para 'gestor', selecionada se o perfil do usuário for 'gestor' -->
-            <option value="gestor" <?= $user['perfil'] == 'gestor' ? 'selected' : '' ?>>Gestor</option>
-
-            <!-- Opção para 'colaborador', selecionada se o perfil do usuário for 'colaborador' -->
-            <option value="colaborador" <?= $user['perfil'] == 'colaborador' ? 'selected' : '' ?>>Colaborador</option>
-        </select><br>
-
-        <button type="submit">Salvar</button>
-    </form>
-
-    <!-- Link para voltar à lista de usuários -->
-    <a href="index.php?action=list">Voltar</a>
-
+            <button type="submit" class="btn">Salvar</button>
+        </form>
+        <a href="index.php?action=list" class="back-link">Voltar para Lista de Usuários</a>
+    </div>
 </body>
 
 </html>
