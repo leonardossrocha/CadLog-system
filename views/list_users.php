@@ -1,46 +1,64 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<?php
+session_start(); // Inicia a sessão, caso não tenha sido iniciada
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar</title>
-</head>
+// Verifica se o array $_SESSION e a chave 'perfil' estão definidos
+if (isset($_SESSION['perfil'])):
+?>
+    <!DOCTYPE html>
+    <html lang="pt-br">
 
-<body>
-    <h2>Lista de Usuários</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Perfil</th>
-            <th>Ações</th>
-        </tr>
-        <?php foreach ($users as $user): ?>
-            <!-- Início do loop para iterar sobre a lista de usuários -->
-            <tr>
-                <!-- Exibe o ID do usuário -->
-                <td><?= $user['id'] ?></td>
-                <!-- Exibe o nome do usuário -->
-                <td><?= $user['nome'] ?></td>
-                <!-- Exibe o e-mail do usuário -->
-                <td><?= $user['email'] ?></td>
-                <!-- Exibe o perfil do usuário -->
-                <td><?= $user['perfil'] ?></td>
-                <td>
-                    <!-- Link para editar o usuário, passando o ID do usuário na URL -->
-                    <a href="index.php?action=edit&id=<?= $user['id'] ?>">Editar</a>
-                    <!-- Link para excluir o usuário, passando o ID do usuário na URL -->
-                    <!-- O link exibe uma caixa de confirmação antes de prosseguir com a exclusão -->
-                    <a href="index.php?action=delete&id=<?= $user['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <!-- Link para retornar ao Dashboard -->
-    <a href="index.php?action=dashboard">Voltar ao Dashboard</a>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Usuários</title>
+        <link rel="stylesheet" type='text/css' media='screen' href="css/list.css"> <!-- Link para o arquivo CSS -->
+    </head>
 
-</body>
+    <body class="<?= $_SESSION['perfil'] ?>"> <!-- Define a classe com base no perfil do usuário -->
+        <div class="container">
+            <h2>Lista de Usuários</h2>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Email</th>
+                        <th>Perfil</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-</html>
+                    <?php foreach ($users as $user): ?>
+                        <tr>
+                            <td><?= $user['id'] ?></td>
+                            <td><?= $user['nome'] ?></td>
+                            <td><?= $user['email'] ?></td>
+                            <td><?= $user['perfil'] ?></td>
+                            <td>
+                                <!-- Permitir que admin e gestor editem -->
+                                <?php if ($_SESSION['perfil'] == 'admin' || $_SESSION['perfil'] == 'gestor'): ?>
+                                    <a href="index.php?action=edit&id=<?= $user['id'] ?>" class="btn">Editar</a>
+                                <?php endif; ?>
+
+                                <!-- Permitir que apenas admin exclua -->
+                                <?php if ($_SESSION['perfil'] == 'admin'): ?>
+                                    <a href="index.php?action=delete&id=<?= $user['id'] ?>" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                </tbody>
+            </table>
+
+            <a href="index.php?action=dashboard" class="btn">Voltar ao Dashboard</a>
+        </div>
+    </body>
+
+    </html>
+
+<?php else: ?>
+    <!-- Se $_SESSION['perfil'] não estiver definido, exibe uma mensagem -->
+    <p>Erro: Você não tem permissão para visualizar esta página.</p>
+<?php endif; ?>

@@ -1,20 +1,35 @@
-<?php
-// Exibe uma mensagem de boas-vindas ao usuário, incluindo seu perfil
-// O perfil é obtido da sessão iniciada (ex: 'admin', 'gestor', 'colaborador')
-echo "Bem-vindo, " . $_SESSION['perfil'] . "!<br>";
+<!DOCTYPE html>
+<html lang="pt-br">
 
-// Verifica o perfil do usuário armazenado na sessão para determinar o que exibir
-if ($_SESSION['perfil'] == 'admin') {
-    // Se o perfil for 'admin', exibe um link para gerenciar usuários
-    echo "<a href='index.php?action=list'>Gerenciar Usuários</a>";
-} elseif ($_SESSION['perfil'] == 'gestor') {
-    // Se o perfil for 'gestor', exibe uma mensagem específica para a área do gestor
-    echo "Área do gestor.";
-} else {
-    // Caso contrário (presumindo que o perfil é 'colaborador'), exibe uma mensagem específica para a área do colaborador
-    echo "Área do colaborador.";
-}
-?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type='text/css' media='screen' href="css/style.css">
+</head>
 
-<!-- Exibe um link para fazer logout -->
-<a href="index.php?action=logout">Logout</a>
+<body class="<?= $_SESSION['perfil'] ?>"> <!-- Define a classe com base no perfil -->
+    <div class="container">
+        <h1>Bem-vindo, <?= $_SESSION['perfil'] ?>!</h1>
+        <p>Esta é a visão do perfil <?= $_SESSION['perfil'] ?>.</p>
+
+        <?php if ($_SESSION['perfil'] == 'admin'): ?>
+            <!-- Admin pode gerenciar usuários (editar e excluir) -->
+            <a href="index.php?action=list" class="btn">Gerenciar Usuários (Admin)</a>
+
+        <?php elseif ($_SESSION['perfil'] == 'gestor'): ?>
+            <!-- Gestor pode gerenciar usuários (apenas editar) -->
+            <a href="index.php?action=list" class="btn">Gerenciar Usuários (Gestor)</a>
+            <p>Área exclusiva do Gestor.</p>
+
+        <?php else: ?>
+            <p>Área exclusiva do Colaborador.</p>
+        <?php endif; ?>
+
+        <br><br><br><br>
+        <!-- Link para logout -->
+        <a href="index.php?action=logout" class="btn">Logout</a>
+    </div>
+</body>
+
+</html>

@@ -27,26 +27,29 @@ class UserController
     // Função para editar os dados de um usuário existente
     public function edit($id)
     {
-        // Chama o método find do Model User para encontrar o usuário pelo ID
-        $user = User::find($id);
+        session_start();
+        // Permitir apenas admin e gestor editarem usuários
+        if ($_SESSION['perfil'] == 'admin' || $_SESSION['perfil'] == 'gestor') {
+            $user = User::find($id);
 
-        // Verifica se a requisição HTTP é do tipo POST (se o formulário foi enviado)
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Coleta os novos dados enviados pelo formulário e organiza em um array
-            $data = [
-                'nome' => $_POST['nome'], // Nome do usuário
-                'email' => $_POST['email'], // E-mail do usuário
-                'perfil' => $_POST['perfil'] // Perfil do usuário
-            ];
-            // Chama o método update do Model User para atualizar os dados do usuário no banco de dados
-            User::update($id, $data);
-            // Após a edição, redireciona o usuário para a lista de usuários
-            header('Location: index.php?action=list');
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $data = [
+                    'nome' => $_POST['nome'],
+                    'email' => $_POST['email'],
+                    'perfil' => $_POST['perfil']
+                ];
+
+                User::update($id, $data);
+                header('Location: index.php?action=list');
+            } else {
+                include 'views/edit_user.php';
+            }
         } else {
-            // Se a requisição não for POST, carrega a página de edição de usuário
-            include 'views/edit_user.php';
+            // Exibir mensagem de erro se não tiver permissão
+            echo "Você não tem permissão para editar usuários.";
         }
     }
+
 
     // Função para excluir um usuário
     public function delete($id)
