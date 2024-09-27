@@ -17,7 +17,7 @@ class AuthController
             $user = User::findByEmail($email);
 
             // Verifica se o usuário foi encontrado e se a senha fornecida está correta
-            if ($user && password_verify($senha, $user['senha'])) {
+            if ($user && password_verify($senha, $user['senha'])) { //Verifica se uma senha corresponde a um hash
                 // Inicia uma sessão
                 session_start();
                 // Armazena na sessão o ID do usuário e o perfil do usuário logado
