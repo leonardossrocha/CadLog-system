@@ -20,3 +20,4 @@ class DashboardController
         include 'views/dashboard.php';
     }
 }
+?>
