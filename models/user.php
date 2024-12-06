@@ -68,7 +68,7 @@ class User
     {
         // Obtém a conexão com o banco de dados
         $conn = Database::getConnection();
-        
+            
         // Prepara uma consulta SQL para atualizar o nome, email e perfil de um usuário baseado no ID
         $stmt = $conn->prepare("UPDATE usuarios SET nome = :nome, email = :email, perfil = :perfil WHERE id = :id");
         
@@ -80,7 +80,7 @@ class User
     }
 
     // Função para excluir um usuário pelo ID
-    public static function delete($id)
+    public static function delete($id)  
     {
         // Obtém a conexão com o banco de dados
         $conn = Database::getConnection();

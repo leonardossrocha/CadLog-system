@@ -60,5 +60,47 @@ if (isset($_SESSION['perfil'])):
 
 <?php else: ?>
     <!-- Se $_SESSION['perfil'] não estiver definido, exibe uma mensagem -->
-    <p>Erro: Você não tem permissão para visualizar esta página.</p>
+
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Erro de acesso</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+        <script src='main.js'></script>
+        <style>
+            .containerErro {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+            .erro {
+                display: flex;
+                background-color: rgba(21, 81, 107, 0.63);
+                display: flex;
+                /*Comportamento do elemento na página*/
+                font-family: verdana;
+            }
+            p{
+                text-align: center;
+                font-size: 30px;
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body class="erro">
+        <main class="containerErro">
+            <p>Erro: Você não tem permissão para visualizar esta página.</p><br><br>
+            <a href="index.php?action=login" class="back-link">Voltar ao Login</a>
+        </main>
+    </body>
+
+    </html>
+
 <?php endif; ?>
