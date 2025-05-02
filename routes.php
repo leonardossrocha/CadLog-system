@@ -1,5 +1,5 @@
 <?php
-
+//é um arquivo que define como as URLs de um site são mapeadas para as diferentes funcionalidades da aplicação$a
 // Inclui arquivos de controlador necessários para lidar com diferentes ações
 require 'controllers/AuthController.php'; // Inclui o controlador de autenticação
 require 'controllers/UserController.php'; // Inclui o controlador de usuários
