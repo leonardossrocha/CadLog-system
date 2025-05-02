@@ -34,7 +34,10 @@ CadLog-system/
 ├── model/              # Classes e funções de acesso ao banco de dados
 ├── view/               # Arquivos de interface (formulários, páginas, etc)
 ├── public/             # Assets públicos (CSS, JS, imagens)
+├── auth.php            # Verificar a autenticação do usuário na aplicação
 ├── index.php           # Roteador principal (ponto de entrada da aplicação)
+├── logout.php          # Responsável por deslogar o usuário da aplicação
+├── routes.php          # Responsável por mapear e direcionar usuário na aplicação
 └── README.md           # Documentação do projeto  
 
 ```
